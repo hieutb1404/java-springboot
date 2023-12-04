@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sinh viên</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Quản lý sinh viên</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Đăng xuất</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Phần "Xin chào tài khoản" với Bootstrap -->
+        <div class="navbar-text">
+            Xin chào tài khoản: <span sec:authentication="principal.username" class="font-weight-bold text-primary"></span>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container my-2">
+    <h1 class="mt-4">Danh sách sinh viên</h1>
+    <a th:href="@{'/new'}" class="btn btn-primary btn-sm my-3">Thêm sinh viên</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Mã sinh viên</th>
+                <th scope="col">Họ tên</th>
+                <th scope="col">Tên khoa</th>
+                <th scope="col">Giới tính</th>
+                <th scope="col">Điểm tin</th>
+                <th scope="col">Tình trạng</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="SinhVien : ${listSinhVien}">
+                <td th:text="${SinhVien.masv}"></td>
+                <td th:text="${SinhVien.hoten}"></td>
+                <td th:text="${SinhVien.tenkhoa}"></td>
+                <td th:text="${SinhVien.gioitinh}"></td>
+                <td th:text="${SinhVien.diemtin}"></td>
+                <td>
+                    <div th:if="${SinhVien.diemtin >= 5}" class="text-success">Đỗ</div>
+                    <div th:unless="${SinhVien.diemtin >= 5 }" class="text-danger">Trượt</div>
+                </td>
+                <td>
+                    <a th:href="@{'/edit/' + ${SinhVien.id}}" class="btn btn-primary btn-sm mr-2">Sửa</a>
+                    <a th:href="@{'/delete/' + ${SinhVien.id}}" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="col-md-12 mt-4">
+        <form th:action="@{/search-condition-two}" method="get" class="form-inline">
+            <input type="text" class="form-control mr-2" placeholder="Nhập tên khoa" name="tenkhoa" />
+            <input type="text" class="form-control mr-2" placeholder="Nhập diem tin >=" name="diemtin" />
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </form>
+    </div>
+
+    <a th:href="@{'/'}" class="btn btn-primary btn-sm my-3">Trở về trang chủ</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

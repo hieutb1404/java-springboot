@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Đăng ký và đăng nhập ứng dụng</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity=""
+    crossorigin="anonymous">
+</head>
+<body>
+    <!-- create navigation bar (header) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#" th:href="@{/}">Đăng ký và đăng nhập</a>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <h1 class="text-center">Đăng nhập thông tin người dùng</h1>
+                <form th:action="@{/login}" method="post">
+                    <!-- error message -->
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        Tên người dùng/mật khẩu không hợp lệ
+                    </div>
+                    <!-- logout message -->
+                    <div th:if="${param.logout}" class="alert alert-info">
+                        Bạn đã đăng xuất.
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập:</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                            placeholder="Nhập email" autofocus="autofocus">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu:</label>
+                        <input type="password" id="password" name="password" class="form-control"
+                            placeholder="Nhập mật khẩu" />
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 mx-auto">
+                                <button type="submit" name="login-submit" id="login-submit"
+                                    class="btn btn-primary btn-block">Đăng nhập</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group text-center">
+                    <span>Tạo tài khoản mới? <a href="/" th:href="@{/registration}">Đăng ký</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity=""
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity=""
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity=""
+        crossorigin="anonymous"></script>
+</body>
+</html>
